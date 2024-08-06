@@ -20,6 +20,5 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDir = new Vector3(x, 0, 0);
         rb.linearVelocity = moveDir * speed;  
 
-       
     }
 }
