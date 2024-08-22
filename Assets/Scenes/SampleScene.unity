@@ -284,13 +284,13 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1658908268}
+  m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1569236785}
   m_HandleRect: {fileID: 1658908267}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
+  m_MaxValue: 1000
+  m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 123617567}
   - component: {fileID: 123617566}
   - component: {fileID: 123617570}
+  - component: {fileID: 123617571}
   m_Layer: 5
   m_Name: ScreenCanvas
   m_TagString: Untagged
@@ -423,7 +424,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac34cb18a622e9498e9a4f0551015c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pausemenUI: {fileID: 574183944}
+  coldMeterManager: {fileID: 123617571}
+  pausemenuUI: {fileID: 574183944}
+--- !u!114 &123617571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123617565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebb0d86dd7a79e4d9716de20f3c9268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coldMeterSlider: {fileID: 119946205}
+  coldMeterSpeedFactor: 0.5
+  maxColdMeterValue: 10000
+  playerController: {fileID: 747298983}
 --- !u!4 &141064534 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7159832700704429462, guid: fe794b8645c206b45bc6be2784d86047, type: 3}
@@ -1339,6 +1357,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8749eef9a4d2953449a2e8fee265df93, type: 3}
+--- !u!114 &747298983 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1342784516347801080, guid: fe794b8645c206b45bc6be2784d86047, type: 3}
+  m_PrefabInstance: {fileID: 7457931982043011567}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be79bc18d79f4a34d9e05f5294374d31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &769074228
 GameObject:
   m_ObjectHideFlags: 0
@@ -3102,6 +3131,10 @@ PrefabInstance:
     - target: {fileID: 1253485810913799264, guid: fe794b8645c206b45bc6be2784d86047, type: 3}
       propertyPath: m_SortingOrder
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342784516347801080, guid: fe794b8645c206b45bc6be2784d86047, type: 3}
+      propertyPath: speed
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1342784516347801080, guid: fe794b8645c206b45bc6be2784d86047, type: 3}
       propertyPath: health

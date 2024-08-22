@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
-
+    public float speed = 10f; 
     public Rigidbody rb;
     public SpriteRenderer sr;
-
     public int health = 100;
+
+    private float defaultSpeed;
 
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+        defaultSpeed = speed;
     }
 
     // Update is called once per frame
@@ -28,15 +29,20 @@ public class PlayerController : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Die(); // Implement death logic here
+            Die(); 
         }
     }
 
     void Die()
     {
-        // Handle player death, e.g., trigger a game over screen or restart level
+       
         Debug.Log("Player has died!");
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+    public void SetMovementSpeed(float speedFactor)
+    {
+        speed = defaultSpeed * speedFactor; 
     }
 }
 

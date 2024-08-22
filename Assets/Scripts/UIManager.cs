@@ -18,12 +18,12 @@ public class UIManager : MonoBehaviour
     public void EnterHouse()
     {
         UnityEngine.Debug.Log("Button Pressed");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("House");
     }
 
     public void LeaveHouse()
     {
         UnityEngine.Debug.Log("Button Pressed");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene("SampleScene");
     }
 }

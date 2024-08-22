@@ -4,8 +4,10 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
+    public ColdMetreManager coldMeterManager;
 
-    public GameObject pausemenUI;
+    public GameObject pausemenuUI;
+
 
     void Update()
     {
@@ -26,17 +28,18 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        pausemenUI.SetActive(false);
+        pausemenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
+        coldMeterManager.ResumeColdMeter();
     }
 
      void Pause()
     {
-        pausemenUI.SetActive(true);
+        pausemenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
-         
+        coldMeterManager.PauseColdMeter();
     }
 
 
