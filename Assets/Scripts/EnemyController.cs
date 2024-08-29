@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public Transform player; // Reference to the player's Transform
-    public float stalkingSpeed = 1f; // Speed of the wolf while stalking
-    public float chaseSpeed = 2f; // Speed of the wolf when chasing
-    public float stalkingTime = 5f; // Time wolf will stalk before chasing
-    public float chaseRange = 10f; // Distance within which wolf starts chasing
-    public float attackRange = 1f; // Distance within which wolf attacks
-    public float attackCooldown = 1f; // Time between attacks
-    public int damage = 10; // Damage dealt by the wolf
+    public Transform player; 
+    public float stalkingSpeed = 1f; 
+    public float chaseSpeed = 2f; 
+    public float stalkingTime = 5f; 
+    public float chaseRange = 10f; 
+    public float attackRange = 1f; 
+    public float attackCooldown = 1f; 
+    public int damage = 10; 
 
     private Rigidbody rb;
-    private PlayerController playerHealth; // Reference to PlayerHealth
+    private PlayerController playerHealth; 
     private float stalkingTimer;
     private bool isChasing;
     private bool isAttacking;
@@ -22,8 +22,8 @@ public class EnemyController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         stalkingTimer = stalkingTime;
-        playerHealth = player.GetComponent<PlayerController>(); // Obtain the PlayerHealth component from the player GameObject
-        Debug.Log("Wolf initialized and is stalking.");
+        playerHealth = player.GetComponent<PlayerController>(); 
+        Debug.Log("Wolf is stalking.");
     }
 
     void Update()
@@ -58,7 +58,7 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
-        // Move slowly towards the player while stalking, only on the x-axis
+        
         MoveTowardsPlayer(stalkingSpeed);
     }
 
@@ -69,7 +69,7 @@ public class EnemyController : MonoBehaviour
             if (!isAttacking)
             {
                 isAttacking = true;
-                Debug.Log("Wolf entered Attack State.");
+                Debug.Log("Wolf Is Attacking!");
             }
         }
         else if (distanceToPlayer > chaseRange)
@@ -77,13 +77,13 @@ public class EnemyController : MonoBehaviour
             if (isChasing)
             {
                 isChasing = false;
-                stalkingTimer = stalkingTime; // Reset stalking timer
+                stalkingTimer = stalkingTime; 
                 Debug.Log("Wolf stopped Chasing and started Stalking.");
             }
         }
         else
         {
-            // Move towards the player at chase speed, only on the x-axis
+            
             MoveTowardsPlayer(chaseSpeed);
         }
     }
@@ -94,16 +94,13 @@ public class EnemyController : MonoBehaviour
         {
             if (distanceToPlayer <= attackRange)
             {
-                // Call the TakeDamage method on the PlayerHealth component
+                
                 if (playerHealth != null)
                 {
-                    playerHealth.TakeDamage(damage); // Deal damage to the player
+                    playerHealth.TakeDamage(damage); 
                     Debug.Log($"Wolf attacked player for {damage} damage. Player health is now {playerHealth.health}.");
                 }
-                else
-                {
-                    Debug.LogError("PlayerHealth component not found on the player GameObject.");
-                }
+             
                 lastAttackTime = Time.time;
             }
         }
@@ -111,8 +108,8 @@ public class EnemyController : MonoBehaviour
 
     void MoveTowardsPlayer(float speed)
     {
-        float directionX = Mathf.Sign(player.position.x - transform.position.x); // Determine direction
-        Vector3 movement = new Vector3(directionX * speed, rb.linearVelocity.y, 0); // Only change x-axis velocity
+        float directionX = Mathf.Sign(player.position.x - transform.position.x); 
+        Vector3 movement = new Vector3(directionX * speed, rb.linearVelocity.y, 0); 
         rb.linearVelocity = movement; // Apply movement
     }
 }

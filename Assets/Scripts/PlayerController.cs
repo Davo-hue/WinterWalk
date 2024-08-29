@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
         defaultSpeed = speed;
     }
 
-    // Update is called once per frame
     void Update()
     {
         float x = Input.GetAxis("Horizontal");
@@ -36,7 +35,7 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
        
-        Debug.Log("Player has died!");
+        Debug.Log("Player has died");
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 

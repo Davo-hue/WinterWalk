@@ -4,39 +4,36 @@ using UnityEngine.SceneManagement;
 
 public class ColdMetreManager : MonoBehaviour
 {
-    public Slider coldMeterSlider;
-    public float coldMeterSpeedFactor = 1f;
-    public int maxColdMeterValue = 10000;
+    public Slider coldMeterSlider; 
+    public float coldMeterSpeedFactor = 1f; // how much it fills 
+    public int maxColdMeterValue = 10000; // Maximum value 
 
     private int coldMeterValue = 0;
-    private int coldMeterIncreaseRate = 1;
-    
+    private int baseColdMeterIncreaseRate = 1; 
+
     private bool isInHouseScene = false;
     private bool isPaused = false;
 
-    public PlayerController playerController;
-
+    public PlayerController playerController; 
 
     void Start()
     {
         
         coldMeterValue = PlayerPrefs.GetInt("ColdMeterValue", 0);
-       
-
         UpdateSlider();
 
-
         SceneManager.sceneLoaded += OnSceneLoaded;
-
-
     }
 
     void Update()
     {
+
+        Debug.Log("isPaused: " + isPaused + ", isInHouseScene: " + isInHouseScene);
+
         if (!isPaused && !isInHouseScene)
         {
-            int increment = Mathf.Max(1, (int)(coldMeterIncreaseRate * Time.deltaTime));
-            increment = Mathf.Max(increment, 1);
+            
+            int increment = Mathf.Max(1, (int)(baseColdMeterIncreaseRate * coldMeterSpeedFactor * Time.deltaTime));
 
             coldMeterValue += increment;
             coldMeterValue = Mathf.Clamp(coldMeterValue, 0, maxColdMeterValue);
@@ -51,7 +48,7 @@ public class ColdMetreManager : MonoBehaviour
             {
                 if (playerController != null)
                 {
-                    playerController.SetMovementSpeed(0.5f);
+                    playerController.SetMovementSpeed(0.5f); 
                 }
             }
             else
@@ -66,49 +63,71 @@ public class ColdMetreManager : MonoBehaviour
 
     private void UpdateSlider()
     {
-        coldMeterSlider.maxValue = maxColdMeterValue;
-        coldMeterSlider.value = Mathf.Clamp(coldMeterValue, 0, maxColdMeterValue);
+        if (coldMeterSlider != null)
+        {
+            coldMeterSlider.maxValue = maxColdMeterValue;
+            coldMeterSlider.value = Mathf.Clamp(coldMeterValue, 0, maxColdMeterValue);
+        }
     }
 
-    private void OnSceneLoaded(Scene _scene, LoadSceneMode _mode)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        
-
-        if (_scene.name == "House") 
+        if (scene.name == "House") 
         {
             isInHouseScene = true;
+            PauseColdMeter();
+            // Save cold meter value when entering house 
+            PlayerPrefs.SetInt("ColdMeterValue", coldMeterValue);
+            PlayerPrefs.Save();
         }
         else
         {
             isInHouseScene = false;
-
+            ResumeColdMeter();
+            // keep cold meter value when leaving house
+            coldMeterValue = PlayerPrefs.GetInt("ColdMeterValue", coldMeterValue);
+            UpdateSlider();
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("ColdMeterValue", coldMeterValue);
+        PlayerPrefs.Save();
     }
 
     public void SetColdMeterSpeed(float newSpeedFactor)
     {
         coldMeterSpeedFactor = newSpeedFactor;
-        Debug.Log($"Cold Meter Speed Factor Set To: {coldMeterSpeedFactor}");
     }
-
 
     public void PauseColdMeter()
     {
         isPaused = true;
-       
     }
 
-    // Call this method to resume the cold meter
     public void ResumeColdMeter()
     {
         isPaused = false;
-       
     }
 
     private void HandlePlayerDeath()
     {
-        Debug.Log("Player has died due to cold meter being full!");
-        // Restart the current scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log("Player has died due to the cold");
+     
+        coldMeterValue = 0;
+        PlayerPrefs.SetInt("ColdMeterValue", coldMeterValue);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
     }
+
+    
+    public void StartNewGame()
+    {
+        coldMeterValue = 0;
+        PlayerPrefs.SetInt("ColdMeterValue", coldMeterValue);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("MainScene");
+    }
+
 }
