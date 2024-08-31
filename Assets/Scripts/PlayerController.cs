@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer sr;
     public int health = 100;
 
-    private float defaultSpeed;
+    public float defaultSpeed;
 
     void Start()
     {
@@ -36,12 +37,13 @@ public class PlayerController : MonoBehaviour
     {
        
         Debug.Log("Player has died");
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Menu");
     }
 
-    public void SetMovementSpeed(float speedFactor)
+    public void SetMovementSpeed(float newSpeed)
     {
-        speed = defaultSpeed * speedFactor; 
+        
+        speed = newSpeed;
     }
 }
 

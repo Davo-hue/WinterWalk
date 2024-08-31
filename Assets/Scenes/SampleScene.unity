@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1000
-  m_WholeNumbers: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -438,10 +438,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eebb0d86dd7a79e4d9716de20f3c9268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxCount: 1000
   coldMeterSlider: {fileID: 119946205}
-  coldMeterSpeedFactor: 2
-  maxColdMeterValue: 10000
-  playerController: {fileID: 747298983}
+  player: {fileID: 747298983}
+  countMultiplier: 27.4
 --- !u!4 &141064534 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7159832700704429462, guid: fe794b8645c206b45bc6be2784d86047, type: 3}

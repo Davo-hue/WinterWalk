@@ -924,10 +924,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eebb0d86dd7a79e4d9716de20f3c9268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxCount: 1000
   coldMeterSlider: {fileID: 657066646}
-  coldMeterSpeedFactor: 0.5
-  maxColdMeterValue: 10000
-  playerController: {fileID: 497711740}
+  player: {fileID: 497711740}
+  countMultiplier: 10.7
 --- !u!114 &257002537
 MonoBehaviour:
   m_ObjectHideFlags: 0
